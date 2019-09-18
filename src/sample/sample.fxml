@@ -8,6 +8,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ComboBox?>
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"
           fx:controller="sample.Controller">
   <columnConstraints>
@@ -26,16 +28,17 @@
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" >
                      <children>
-                        <Button fx:id="productionLineButton" layoutX="49.0" layoutY="37.0" mnemonicParsing="false" onMouseClicked="#doAction" text="Button" />
+                        <Button fx:id="productionLineButton" layoutX="49.0" layoutY="37.0" mnemonicParsing="false" onMouseClicked="#addProductFromProductLine" text="Button" />
                      </children>
                   </AnchorPane>
                </content>
           </Tab>
-          <Tab text="Record Production">
+          <Tab text="Produce">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="recordProductionButton" layoutX="56.0" layoutY="41.0" mnemonicParsing="false" onMouseClicked="#doAction" text="Button" />
+                        <Button fx:id="produceButton" layoutX="56.0" layoutY="40.0" mnemonicParsing="false" onMouseClicked="#doAction" text="Button" />
+                        <ComboBox fx:id="produceCbo"   layoutX="150.0" layoutY="40.0"  />
                      </children>
                   </AnchorPane>
             </content>
