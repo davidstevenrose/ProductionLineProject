@@ -13,25 +13,19 @@ import java.sql.Statement;
 public class Main extends Application {
 
     static final String JDBC_DRIVER = "org.h2.Driver";
-    static final String DB_URL = "jdbc:h2:../ProductionLine/res/h2";
+    static final String DB_URL = "jdbc:h2:./res/ProductionLineDB";
 
-    Connection conn = null;
-    Statement st = null;
+    public static Main instance;
+
+    public Connection conn;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        String user = null;
-        String pword = null;
 
         try{
             Class.forName(JDBC_DRIVER);     //register JDBC driver
             conn = DriverManager.getConnection(DB_URL);
-            st = conn.createStatement();
 
-            String quireOne = "CREATE TABLE Product;";
-            String quireTwo = "DROP TABLE Product;";
-            st.execute(quireOne);
-            st.execute(quireTwo);
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -40,6 +34,10 @@ public class Main extends Application {
         primaryStage.setTitle("Production Line");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
+
+        //Although it is poor to set the instance property from the 'start' method,
+        //a better method could not yet be found that is static. This will do for now.
+        Main.instance = this;
     }
 
 
