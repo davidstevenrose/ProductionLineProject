@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="ProductionLineDB" uuid="7d3e4965-0f52-46f1-a937-f4af9443223f">
+      <driver-ref>h2.unified</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:$PROJECT_DIR$/res/ProductionLineDB</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="h2" uuid="e1a67b45-836b-4dde-9ab2-d98475423244">
+      <driver-ref>h2.unified</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:$PROJECT_DIR$/res</jdbc-url>
+    </data-source>
+  </component>
+</project>
