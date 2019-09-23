@@ -9,6 +9,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
+ * This is the driver class that creates a connection to the database, loads sample.fxml, and opens
+ * the application.
+ *
  * @author drose
  */
 public class Main extends Application {

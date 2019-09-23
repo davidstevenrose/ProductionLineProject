@@ -12,6 +12,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * This class handles events within the application opened in Main.java.
+ *
+ * @author drose
+ */
 public class Controller {
 
   @FXML
@@ -36,7 +41,7 @@ public class Controller {
   private TextArea productLogTxt;
 
   /**
-   * Initializes the values in the produce tab combobox
+   * Initializes the values in the produce tab combobox.
    */
   @FXML
   protected void initialize() {
@@ -48,7 +53,8 @@ public class Controller {
   }
 
   /**
-   * Adds a product to the product line table in the H2 database
+   * Adds a product to the product line table in the H2 database.
+   *
    * @param event a passed event
    */
   @FXML
@@ -67,7 +73,8 @@ public class Controller {
   }
 
   /**
-   * placeholder event
+   * placeholder event.
+   *
    * @param e placeholder
    */
   @FXML
