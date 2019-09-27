@@ -2,6 +2,7 @@ package sample;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,18 +19,13 @@ public class Main extends Application {
 
   private static final String JDBC_DRIVER = "org.h2.Driver";
   private static final String DB_URL = "jdbc:h2:./res/ProductionLineDB";
-  public Connection conn;
+  /**
+   * The connection to the provided database.
+   */
+  public static Connection conn;
 
   @Override
   public void start(Stage primaryStage) throws Exception {
-    try {
-      //register JDBC driver
-      Class.forName(JDBC_DRIVER);
-      //creates a connection for every instance of Main
-      conn = DriverManager.getConnection(DB_URL);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
     //loads the fxml file, then the css stylesheet
     Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
     Scene scene = new Scene(root, 600, 400);
@@ -44,6 +40,16 @@ public class Main extends Application {
   }
 
   public static void main(String[] args) {
+    try {
+      //register JDBC driver
+      Class.forName(JDBC_DRIVER);
+      //creates a connection for every instance of Main
+      Main.conn = DriverManager.getConnection(DB_URL);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
     launch(args);
+
   }
 }

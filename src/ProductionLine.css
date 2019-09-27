@@ -5,10 +5,6 @@
 }
 
 #window {
-  -fx-max-Height: -Infinity;
-  -fx-max-Width: -Infinity;
-  -fx-min-Height: -Infinity;
-  -fx-min-Width: -Infinity;
   -fx-pref-width: 600px;
   -fx-prefHeight: 400px;
 }
