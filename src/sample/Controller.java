@@ -1,5 +1,6 @@
 package sample;
 
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 import javafx.fxml.FXML;
@@ -102,21 +103,21 @@ public class Controller {
     String queryOne = "Insert Into product(name,type,manufacturer)"
         + "Values('Nail','Construction','Home Depot');";
     String queryTwo = "INSERT INTO product(name,type,manufacturer)"
-        + "VALUES('Nail','AM','Sun')";
+        + "VALUES('Nail','AM',?)";
     try {
-      Statement st = Main.conn.createStatement();
-      st.executeUpdate(queryOne);
+      //create some placeholder statements
+      PreparedStatement psOne = Main.conn.prepareStatement(queryOne);
+      PreparedStatement psTwo = Main.conn.prepareStatement(queryTwo);
+      psOne.executeUpdate();
       System.out.println("Product 1 added.");
-      st.executeUpdate(queryTwo);
+      psTwo.setString(1,"Sun");
+      psTwo.executeUpdate();
       System.out.println("Product 2 added.");
-      st.close();
+      psOne.close();
+      psTwo.close();
     } catch (Exception e) {
       e.printStackTrace();
     }
-    //add a widget to the product table
-    Widget wid = new Widget("Hammer");
-    wid.setManufacturer("Lowes");
-    productTable.getItems().add(wid);
   }
 
   /**

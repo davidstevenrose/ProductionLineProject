@@ -1,5 +1,7 @@
 package sample;
 
+import static sample.ItemType.AUDIO;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -39,6 +41,11 @@ public class Main extends Application {
     primaryStage.show();
   }
 
+  /**
+   * Main method.
+   *
+   * @param args passed arguments
+   */
   public static void main(String[] args) {
     try {
       //register JDBC driver
@@ -48,8 +55,11 @@ public class Main extends Application {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    //test the AudioPlayer class
+    AudioPlayer ap = new AudioPlayer("ipod", "apple", AUDIO, "High Spec");
+    System.out.println(ap.toString());
 
+    //opens the application
     launch(args);
-
   }
 }

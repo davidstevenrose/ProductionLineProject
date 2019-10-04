@@ -17,16 +17,25 @@ public abstract class Product implements Item {
    */
   private String type;
   /**
-   * the procudt manufacturer.
+   * the product manufacturer.
    */
   private String manufacturer;
   /**
-   * the procudt name.
+   * the product name.
    */
   private String name;
 
-  public Product(String name) {
+  /**
+   * Creates an object that inherits from Product by setting the object's name and manufacturer.
+   *
+   * @param name         the name of the product
+   * @param manufacturer the manufacturer of the product
+   * @param itemType     the specific type of product
+   */
+  public Product(String name, String manufacturer, ItemType itemType) {
     this.name = name;
+    this.manufacturer = manufacturer;
+    type = itemType.getCode();
   }
 
   @Override
