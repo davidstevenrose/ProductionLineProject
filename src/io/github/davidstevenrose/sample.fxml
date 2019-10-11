@@ -15,7 +15,8 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<TabPane fx:id="window" fx:controller="sample.Controller" tabClosingPolicy="UNAVAILABLE"
+<TabPane fx:id="window" fx:controller="io.github.davidstevenrose.Controller"
+  tabClosingPolicy="UNAVAILABLE"
   xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.0">
   <Tab text="Product Line">
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -46,8 +47,10 @@
       <TableView fx:id="productTable" layoutX="13.0" layoutY="210.0" prefHeight="141.0"
         prefWidth="566.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1"/>
-          <TableColumn prefWidth="75.0" text="C2"/>
+          <!--added these columns to test and debug media classes-->
+          <TableColumn prefWidth="75.0" text="Name"/>
+          <TableColumn prefWidth="150.0" text="Manufacturer"/>
+          <TableColumn prefWidth="75.0" text="Type"/>
         </columns>
       </TableView>
     </AnchorPane>

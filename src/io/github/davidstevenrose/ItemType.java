@@ -1,4 +1,4 @@
-package sample;
+package io.github.davidstevenrose;
 
 /**
  * This contains the required constants that represent the available types for a product. Each label

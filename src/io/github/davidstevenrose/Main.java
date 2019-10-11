@@ -1,6 +1,4 @@
-package sample;
-
-import static sample.ItemType.AUDIO;
+package io.github.davidstevenrose;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -32,7 +30,7 @@ public class Main extends Application {
     Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
     Scene scene = new Scene(root, 600, 400);
     scene.getStylesheets().add(
-        Main.class.getResource("\\..\\ProductionLine.css").toExternalForm()
+        Main.class.getResource("\\..\\..\\..\\ProductionLine.css").toExternalForm()
     );
     //opens the application
     primaryStage.setTitle("Production Line");
@@ -56,7 +54,7 @@ public class Main extends Application {
       e.printStackTrace();
     }
     //test the AudioPlayer class
-    AudioPlayer ap = new AudioPlayer("ipod", "apple", AUDIO, "High Spec");
+    AudioPlayer ap = new AudioPlayer("ipod", "apple", ItemType.AUDIO, "High Spec");
     System.out.println(ap.toString());
 
     //opens the application

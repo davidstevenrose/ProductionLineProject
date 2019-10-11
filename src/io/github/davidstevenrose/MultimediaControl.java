@@ -1,4 +1,4 @@
-package sample;
+package io.github.davidstevenrose;
 
 /**
  * <p>This interface forces any implemented class to have basic media controls.</p>

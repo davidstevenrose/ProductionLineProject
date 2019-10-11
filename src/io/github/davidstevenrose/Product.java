@@ -1,4 +1,4 @@
-package sample;
+package io.github.davidstevenrose;
 
 /**
  * An abstract class that defines a product with an integer Id, and Strings name, manufacturer, and
@@ -74,7 +74,6 @@ public abstract class Product implements Item {
    */
   @Override
   public String toString() {
-    String data = "Name: " + name + "\nManufacturer: " + manufacturer + "\nType: " + type;
-    return data;
+    return "Name: " + name + "\nManufacturer: " + manufacturer + "\nType: " + type;
   }
 }

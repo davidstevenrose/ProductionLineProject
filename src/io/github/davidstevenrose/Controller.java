@@ -1,8 +1,8 @@
-package sample;
+package io.github.davidstevenrose;
 
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 
+import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -49,7 +49,7 @@ public class Controller {
   @FXML
   private Button addProductBtn;
   /**
-   * A table (Details TBA). Located in the Product Line tab.
+   * A table that displays Products (more details TBA). Located in the Product Line tab.
    */
   @FXML
   private TableView<Product> productTable;
@@ -90,6 +90,8 @@ public class Controller {
       typeLabel = itemType.toString();
       typeBox.getItems().add(typeLabel);
     }
+
+    testMultiMedia();
   }
 
   /**
@@ -110,7 +112,7 @@ public class Controller {
       PreparedStatement psTwo = Main.conn.prepareStatement(queryTwo);
       psOne.executeUpdate();
       System.out.println("Product 1 added.");
-      psTwo.setString(1,"Sun");
+      psTwo.setString(1, "Sun");
       psTwo.executeUpdate();
       System.out.println("Product 2 added.");
       psOne.close();
@@ -128,5 +130,30 @@ public class Controller {
   @FXML
   protected void doAction(MouseEvent e) {
     System.out.println("Button Pressed");
+  }
+
+  /**
+   * Test the various products built up to Sprint 2 week 8.
+   */
+  private void testMultiMedia() {
+    //change itemType arguments from a String to ItemType in
+    // newAudioProduct and newMovieProduct
+    AudioPlayer newAudioProduct = new AudioPlayer("DP-X1A", "Vanselow Microsystems",
+        ItemType.AUDIO, "M3U/PLS/WPL");
+    Screen newScreen = new Screen("720x480", 40, 22);
+    MoviePlayer newMovieProduct = new MoviePlayer("PAULALLEN MK101", "OracleProduction",
+        ItemType.VISUAL, newScreen,
+        MonitorType.LCD);
+
+    ArrayList<MultimediaControl> products = new ArrayList<>();
+    products.add(newAudioProduct);
+    products.add(newMovieProduct);
+    for (MultimediaControl p : products) {
+      System.out.println(p);
+      p.play();
+      p.stop();
+      p.next();
+      p.previous();
+    }
   }
 }

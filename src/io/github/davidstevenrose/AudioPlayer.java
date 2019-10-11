@@ -1,4 +1,4 @@
-package sample;
+package io.github.davidstevenrose;
 
 /**
  * <p>A special product that has basic media controls.</p>
@@ -57,9 +57,7 @@ public class AudioPlayer extends Product implements MultimediaControl {
    */
   @Override
   public String toString() {
-    String str =
-        super.toString() + "\nAudio Specification: " + this.audioSpecification + "\nMedia Type: "
-            + this.mediaType;
-    return str;
+    return super.toString() + "\nAudio Specification: " + this.audioSpecification + "\nMedia Type: "
+        + this.mediaType;
   }
 }
