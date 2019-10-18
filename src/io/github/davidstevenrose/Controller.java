@@ -42,7 +42,7 @@ public class Controller {
    * Drop down box to select the type of the new product. Located in the Product Line tab.
    */
   @FXML
-  private ChoiceBox<String> typeBox;
+  private ChoiceBox<ItemType> typeBox;
   /**
    * Button that adds the new product information. Located in the Product Line tab.
    */
@@ -83,12 +83,10 @@ public class Controller {
       produceCbo.getItems().add(i);
     }
     produceCbo.getSelectionModel().selectFirst();
-    //should this be true?
+    //should this be true? setting to true for now.
     produceCbo.setEditable(true);
-    String typeLabel;
     for (ItemType itemType : ItemType.values()) {
-      typeLabel = itemType.toString();
-      typeBox.getItems().add(typeLabel);
+      typeBox.getItems().add(itemType);
     }
 
     testMultiMedia();
