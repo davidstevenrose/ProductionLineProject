@@ -69,7 +69,7 @@ public class Controller {
   @FXML
   private Button produceBtn;
   /**
-   * The text area in the Production Log tab (Details TBA).
+   * The text area in the Production Log tab. Displays all production records of items.
    */
   @FXML
   private TextArea productLogTxt;
@@ -131,7 +131,7 @@ public class Controller {
   }
 
   /**
-   * Test the various products built up to Sprint 2 week 8.
+   * Test the various products built up to Sprint 2 week 9.
    */
   private void testMultiMedia() {
     //change itemType arguments from a String to ItemType in
@@ -153,5 +153,11 @@ public class Controller {
       p.next();
       p.previous();
     }
+
+    //Test ProductionRecord class
+    ProductionRecord rec1 = new ProductionRecord(21);
+    System.out.println(rec1.toString());
+    productLogTxt.setText(rec1.toString());
+    productLogTxt.appendText("\n---------------------------------------\n");
   }
 }
