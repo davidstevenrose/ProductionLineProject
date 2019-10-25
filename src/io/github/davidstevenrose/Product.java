@@ -64,6 +64,15 @@ public abstract class Product implements Item {
   }
 
   /**
+   * returns the item code of the type assigned to the product.
+   *
+   * @return the item code of the type
+   */
+  public String getType() {
+    return type;
+  }
+
+  /**
    * returns the name, manufacturer, and type of the product in the form:
    * <p>
    * Name: <i>name</i>\n Manufacturer: <i>manufacturer</i>\n Type: <i>type</i>

@@ -3,6 +3,7 @@ package io.github.davidstevenrose;
 import java.sql.PreparedStatement;
 
 import java.util.ArrayList;
+import java.util.Date;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -121,17 +122,7 @@ public class Controller {
   }
 
   /**
-   * placeholder event.
-   *
-   * @param e placeholder
-   */
-  @FXML
-  protected void doAction(MouseEvent e) {
-    System.out.println("Button Pressed");
-  }
-
-  /**
-   * Test the various products built up to Sprint 2 week 9.
+   * Test the various products built up to Sprint 2 week 10.
    */
   private void testMultiMedia() {
     //change itemType arguments from a String to ItemType in
@@ -156,8 +147,16 @@ public class Controller {
 
     //Test ProductionRecord class
     ProductionRecord rec1 = new ProductionRecord(21);
-    System.out.println(rec1.toString());
+    System.out.println(rec1);
     productLogTxt.setText(rec1.toString());
     productLogTxt.appendText("\n---------------------------------------\n");
+
+    //Test serial number generator
+    MoviePlayer applePlayer = new MoviePlayer("PAULALLEN MK101", "OracleProduction",
+        ItemType.VISUAL, newScreen,
+        MonitorType.LCD);
+    ProductionRecord rec2 = new ProductionRecord(22, 7124, new Date(), applePlayer, 5000);
+    System.out.println("Serial number:");
+    System.out.println(rec2.getSerialNumber());
   }
 }

@@ -64,7 +64,7 @@
       <ComboBox fx:id="produceCbo" layoutX="127.0" layoutY="260.0" prefWidth="150.0"/>
       <Button fx:id="produceBtn" layoutX="14" layoutY="307" mnemonicParsing="false"
         text="Record Production"
-        onMouseClicked="#doAction"/>
+      />
     </AnchorPane>
   </Tab>
   <Tab text="Production Log">

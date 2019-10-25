@@ -53,10 +53,6 @@ public class Main extends Application {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    //test the AudioPlayer class
-    AudioPlayer ap = new AudioPlayer("ipod", "apple", ItemType.AUDIO, "High Spec");
-    System.out.println(ap.toString());
-
     //opens the application
     launch(args);
   }

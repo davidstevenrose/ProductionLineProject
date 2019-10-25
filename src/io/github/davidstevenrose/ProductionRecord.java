@@ -39,13 +39,35 @@ public class ProductionRecord {
   }
 
   /**
+   * Creates a new product with the given ID, a production number, a given date of entry, the
+   * product to be recorded, and the amount of ProductionRecord instances that exist. Generates the
+   * serial number by using the first three letters of the Manufacturer name, then the two letter
+   * ItemType code, then five digits that are unique.
+   *
+   * @param productionNumber the production number of the product
+   * @param productID        the ID of the item
+   * @param dateProduced     a date that shows when the product was entered into the system
+   * @param product          the product that is being recorded
+   * @param count            the number of instances ProductionRecord created
+   */
+  public ProductionRecord(int productionNumber, int productID,
+      Date dateProduced, Product product, int count) {
+    this.productID = productID;
+    this.productionNumber = productionNumber;
+    this.dateProduced = new Date(dateProduced.getTime());
+    String type = product.getType();
+    String manu = product.getManufacturer().substring(0, 3);
+    serialNumber = manu + type + String.format("%05d", count);
+  }
+
+  /**
    * Creates a new product with the given ID, a production number, a given S.N, and a given date of
    * entry.
    *
    * @param productionNumber the production number of the product
    * @param productID        the ID of the item
    * @param serialNumber     the serial number of the product
-   * @param dateProduced     a date that shows when the product was entered into the system.
+   * @param dateProduced     a date that shows when the product was entered into the system
    */
   public ProductionRecord(int productionNumber, int productID, String serialNumber,
       Date dateProduced) {
