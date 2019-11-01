@@ -2,8 +2,8 @@ package io.github.davidstevenrose;
 
 public class MoviePlayer extends Product implements MultimediaControl {
 
-  private Screen screen;
-  private MonitorType monitorType;
+  private final Screen screen;
+  private final MonitorType monitorType;
 
   /**
    * Creates an object that inherits from Product by setting the object's name and manufacturer.

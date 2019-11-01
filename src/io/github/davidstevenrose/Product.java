@@ -1,5 +1,6 @@
 package io.github.davidstevenrose;
 
+
 /**
  * An abstract class that defines a product with an integer Id, and Strings name, manufacturer, and
  * type.
@@ -15,7 +16,7 @@ public abstract class Product implements Item {
   /**
    * the product type.
    */
-  private String type;
+  private final String type;
   /**
    * the product manufacturer.
    */
@@ -41,6 +42,15 @@ public abstract class Product implements Item {
   @Override
   public int getId() {
     return id;
+  }
+
+  /**
+   * Temporary method to allow the table in the product line tab to display the product's id.
+   *
+   * @param id the unique identification of the product.
+   */
+  public void setId(int id) {
+    this.id = id;
   }
 
   @Override

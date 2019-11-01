@@ -5,15 +5,15 @@ public class Screen implements ScreenSpec {
   /**
    * The resolution. Format: "720x480" where numbers vary
    */
-  private String resolution;
+  private final String resolution;
   /**
    * The refresh rate.
    */
-  private int refreshRate;
+  private final int refreshRate;
   /**
    * The response time.
    */
-  private int responseTime;
+  private final int responseTime;
 
   /**
    * Creates a Screen object with a resolution, refresh rate, and response time.

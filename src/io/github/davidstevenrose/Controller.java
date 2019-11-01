@@ -2,17 +2,21 @@ package io.github.davidstevenrose;
 
 import java.sql.PreparedStatement;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -32,7 +36,7 @@ public class Controller {
    * Text field to add the name of a new product. Located in the Product Line tab.
    */
   @FXML
-  private TextField addProductTxt;
+  private TextField productTxt;
   /**
    * Text field to add the name the manufacturer of the new product. Located in the Product Line
    * tab.
@@ -50,22 +54,26 @@ public class Controller {
   @FXML
   private Button addProductBtn;
   /**
-   * A table that displays Products (more details TBA). Located in the Product Line tab.
+   * A table that displays all existing products. Located in the Product Line tab. Displays a row in
+   * the order of product id, type, manufacturer, and name.
    */
   @FXML
   private TableView<Product> productTable;
   /**
-   * A list view (Details TBA). Located in the Produce Line tab.
+   * A list view that displays all products. Located in the Produce Line tab. Selected items are
+   * used to record production.
    */
   @FXML
-  private ListView produceList;//T
+  private ListView<Product> produceList;
   /**
-   * An editable drop down menu (Details TBA). Located in the Product Line tab.
+   * An editable drop down menu. This allows a quantitative selection of a product from the Product
+   * line table. Located in the Product Line tab.
    */
   @FXML
-  private ComboBox<Integer> produceCbo;
+  private ComboBox<String> produceCbo;
   /**
-   * A button to record production (Details TBA). Located in the Product Line tab.
+   * A button to record production. Adds the selected amount of products from produceCbo to the
+   * table in the product line tab. Located in the Product Line tab.
    */
   @FXML
   private Button produceBtn;
@@ -74,14 +82,28 @@ public class Controller {
    */
   @FXML
   private TextArea productLogTxt;
+  /**
+   * A list of all the different makes of a product. Stores each new product specification as the
+   * product's ID.
+   */
+  private final Map<Product, Integer> companyProducts = new HashMap<>();
 
   /**
    * Initializes the values in the produce tab combobox.
    */
   @FXML
   protected void initialize() {
+    //initialize the factory for existing product table
+    // col 1 cell factory set product name
+    productTable.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("name"));
+    // col 2 cell factory set product manufacturer name
+    productTable.getColumns().get(1)
+        .setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
+    // col 3 cell factory set product item type
+    productTable.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("type"));
+
     for (int i = 1; i < 11; i++) {
-      produceCbo.getItems().add(i);
+      produceCbo.getItems().add(String.valueOf(i));
     }
     produceCbo.getSelectionModel().selectFirst();
     //should this be true? setting to true for now.
@@ -90,11 +112,25 @@ public class Controller {
       typeBox.getItems().add(itemType);
     }
 
-    testMultiMedia();
+    //when product line add button is pressed, input will be added to the existing products table.
+    addProductBtn.setOnMouseClicked(event -> {
+      //call method to handle
+      getInputAndAddToTable();
+    });
+
+    //when produce tab add button is pressed
+    produceBtn.setOnMouseClicked(event -> {
+      //call method to handle
+      addProductsToLine();
+    });
+
+    //anytime a product is added to the table, add to production log
+    //remember to change contents of log to ProductionRecord objects
   }
 
   /**
    * Adds a product to the product line table in the H2 database.
+   * this method is currently hooked by fxml DOM
    *
    * @param event a passed event
    */
@@ -122,41 +158,72 @@ public class Controller {
   }
 
   /**
-   * Test the various products built up to Sprint 2 week 10.
+   * Takes the current input from the product line tab and creates a new product object. The object
+   * is then placed into the table for existing products. Then, the object in string form is added
+   * to the produce tab text view.
    */
-  private void testMultiMedia() {
-    //change itemType arguments from a String to ItemType in
-    // newAudioProduct and newMovieProduct
-    AudioPlayer newAudioProduct = new AudioPlayer("DP-X1A", "Vanselow Microsystems",
-        ItemType.AUDIO, "M3U/PLS/WPL");
-    Screen newScreen = new Screen("720x480", 40, 22);
-    MoviePlayer newMovieProduct = new MoviePlayer("PAULALLEN MK101", "OracleProduction",
-        ItemType.VISUAL, newScreen,
-        MonitorType.LCD);
+  private void getInputAndAddToTable() {
+    //get input
+    String prodName = productTxt.getText();
+    String manuName = manufactureProd.getText();
+    ItemType prodType = typeBox.getValue();
+    Product newProd;
+    if (prodType == ItemType.VISUAL || prodType == ItemType.VISUAL_MOBILE) {
+      newProd = new MoviePlayer(prodName, manuName, prodType, new Screen("244p", 0, 0),
+          MonitorType.LCD);
+    } else {
+      newProd = new AudioPlayer(prodName, manuName, prodType, "no specs");
+    }
+    //for now set a random id to the product
+    newProd.setId(new Random().nextInt(Integer.MAX_VALUE));
+    //clear input in UI
+    productTxt.setText("");
+    manufactureProd.setText("");
+    typeBox.setValue(null);
 
-    ArrayList<MultimediaControl> products = new ArrayList<>();
-    products.add(newAudioProduct);
-    products.add(newMovieProduct);
-    for (MultimediaControl p : products) {
-      System.out.println(p);
-      p.play();
-      p.stop();
-      p.next();
-      p.previous();
+    //add product to table
+    ObservableList<Product> tableElements = productTable.getItems();
+    tableElements.add(newProd);
+
+    //add product to list of company products. if product is new, then update produce text area.
+    //this might do a compare by ref, keep in mind.
+    if (!companyProducts.containsKey(newProd)) {
+      int uniqueID = new Random().nextInt(Integer.MAX_VALUE);
+      while (companyProducts.containsValue(uniqueID)) {
+        uniqueID = new Random().nextInt(Integer.MAX_VALUE);
+      }
+      newProd.setId(uniqueID);
+      companyProducts.put(newProd, uniqueID);
+      produceList.getItems().add(newProd);
+      produceList.setCellFactory(e -> new ListCell<Product>() {
+        @Override
+        protected void updateItem(Product prod, boolean empty) {
+          super.updateItem(prod, empty);
+          if (empty || prod == null) {
+            setText(null);
+          } else {
+            setText(prod.toString());
+          }
+        }
+      });
     }
 
-    //Test ProductionRecord class
-    ProductionRecord rec1 = new ProductionRecord(21);
-    System.out.println(rec1);
-    productLogTxt.setText(rec1.toString());
-    productLogTxt.appendText("\n---------------------------------------\n");
+    productLogTxt.appendText(newProd.toString());
+    productLogTxt.appendText("===============================\n");
+  }
 
-    //Test serial number generator
-    MoviePlayer applePlayer = new MoviePlayer("PAULALLEN MK101", "OracleProduction",
-        ItemType.VISUAL, newScreen,
-        MonitorType.LCD);
-    ProductionRecord rec2 = new ProductionRecord(22, 7124, new Date(), applePlayer, 5000);
-    System.out.println("Serial number:");
-    System.out.println(rec2.getSerialNumber());
+  /**
+   * Gets the selected product from the produce text area and adds a quantity to the product line
+   * table.
+   */
+  private void addProductsToLine() {
+    Product selected = produceList.getSelectionModel().getSelectedItem();
+    int quantity = Integer.parseInt(produceCbo.getValue());
+    for (int count = 0; count < quantity; count++) {
+      productTable.getItems().add(selected);
+      productLogTxt.appendText(selected.toString());
+      productLogTxt.appendText("===============================\n");
+    }
+    produceCbo.setValue(null);
   }
 }

@@ -13,7 +13,7 @@ public enum ItemType {
   AUDIO_MOBILE("AM"),
   VISUAL_MOBILE("VM");
 
-  private String code;
+  private final String code;
 
   ItemType(String c) {
     code = c;

@@ -22,7 +22,7 @@ public class Main extends Application {
   /**
    * The connection to the provided database.
    */
-  public static Connection conn;
+  static Connection conn;
 
   @Override
   public void start(Stage primaryStage) throws Exception {
