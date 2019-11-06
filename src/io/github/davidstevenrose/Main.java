@@ -35,7 +35,8 @@ public class Main extends Application {
     //opens the application
     primaryStage.setTitle("Production Line");
     primaryStage.setScene(scene);
-    primaryStage.setResizable(false);
+    //setting resizable to true per client request
+    primaryStage.setResizable(true);
     primaryStage.show();
   }
 
