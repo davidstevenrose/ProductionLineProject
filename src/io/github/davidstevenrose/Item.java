@@ -6,7 +6,7 @@ package io.github.davidstevenrose;
  *
  * @author drose
  */
-public interface Item {
+interface Item {
 
   /**
    * Gets the Id of the object.

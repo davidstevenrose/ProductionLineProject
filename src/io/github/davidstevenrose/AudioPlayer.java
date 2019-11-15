@@ -5,6 +5,7 @@ package io.github.davidstevenrose;
  *
  * @author drose
  */
+@SuppressWarnings("ALL")
 public class AudioPlayer extends Product implements MultimediaControl {
 
   /**
@@ -23,8 +24,9 @@ public class AudioPlayer extends Product implements MultimediaControl {
    * @param manufacturer       the manufacturer of the product
    * @param audioSpecification the The audio specification of the object.
    */
-  public AudioPlayer(String name, String manufacturer, ItemType it, String audioSpecification) {
-    super(name, manufacturer, it);
+  AudioPlayer(int id, String name, String manufacturer, ItemType it,
+      String audioSpecification) {
+    super(id, name, manufacturer, it);
     this.audioSpecification = audioSpecification;
     this.mediaType = "Unavailable";
   }
@@ -53,7 +55,7 @@ public class AudioPlayer extends Product implements MultimediaControl {
    * Prints a String representation of the object.
    *
    * @return the String from Product method toString() with lines for the audio specification and
-   * media type.
+   *     media type.
    */
   @Override
   public String toString() {

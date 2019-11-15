@@ -41,8 +41,7 @@
           GridPane.rowIndex="2"/>
       </GridPane>
       <Button fx:id="addProductBtn" layoutX="8" layoutY="126" mnemonicParsing="false"
-        text="Add Product"
-        onMouseDragEntered="#addProductFromProductLine"/>
+        text="Add Product"/>
       <Label layoutX="14.0" layoutY="186.0" text="Existing Products"/>
       <TableView fx:id="productTable" layoutX="13.0" layoutY="210.0" prefHeight="141.0"
         prefWidth="566.0">

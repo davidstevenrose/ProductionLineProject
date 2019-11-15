@@ -6,7 +6,7 @@ import java.util.Date;
  * Represents a recorded item that has been input into the system but has not yet been processed.
  * Objects of this class are displayed in the TextArea on the production log tab.
  */
-public class ProductionRecord {
+class ProductionRecord {
 
   /**
    * The number of the item in production.
@@ -26,10 +26,11 @@ public class ProductionRecord {
   private Date dateProduced;
 
   /**
-   * Creates a new product with the given ID. Sets the production number to 0, S.N. to 0, and the
-   * date produced to today's date.
-   *
+   * Creates a new product with the given ID. Sets the production number to 0, S.N. to
+   *     0, and the date produced to today's date.
    * @param productID the ID of the item
+   * @deprecated
+   *
    */
   public ProductionRecord(int productID) {
     this.productID = productID;
@@ -39,21 +40,19 @@ public class ProductionRecord {
   }
 
   /**
-   * Creates a new product with the given ID, a production number, a given date of entry, the
-   * product to be recorded, and the amount of ProductionRecord instances that exist. Generates the
-   * serial number by using the first three letters of the Manufacturer name, then the two letter
-   * ItemType code, then five digits that are unique.
+   * Creates a new product with the given ID, a given date of entry, the product to be recorded, and
+   * the amount of ProductionRecord instances that exist. Generates the serial number by using the
+   * first three letters of the Manufacturer name, then the two letter ItemType code, then five
+   * digits that are unique.
    *
-   * @param productionNumber the production number of the product
-   * @param productID        the ID of the item
-   * @param dateProduced     a date that shows when the product was entered into the system
-   * @param product          the product that is being recorded
-   * @param count            the number of instances ProductionRecord created
+   * @param productID    the ID of the item
+   * @param dateProduced a date that shows when the product was entered into the system
+   * @param product      the product that is being recorded
+   * @param count        the number of instances ProductionRecord created
    */
-  public ProductionRecord(int productionNumber, int productID,
+  public ProductionRecord(int productID,
       Date dateProduced, Product product, int count) {
     this.productID = productID;
-    this.productionNumber = productionNumber;
     this.dateProduced = new Date(dateProduced.getTime());
     String type = product.getType();
     String manu = product.getManufacturer().substring(0, 3);
@@ -82,7 +81,7 @@ public class ProductionRecord {
    *
    * @return the production number
    */
-  public int getProductionNumber() {
+  private int getProductionNumber() {
     return productionNumber;
   }
 

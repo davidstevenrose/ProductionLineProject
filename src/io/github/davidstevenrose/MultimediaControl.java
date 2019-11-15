@@ -5,7 +5,7 @@ package io.github.davidstevenrose;
  *
  * @author drose
  */
-public interface MultimediaControl {
+interface MultimediaControl {
 
   /**
    * Plays the object.

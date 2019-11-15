@@ -39,18 +39,24 @@ public abstract class Product implements Item {
     type = itemType.getCode();
   }
 
+  /**
+   * Creates an object that inherits from Product by setting the object's name and manufacturer.
+   *
+   * @param id           the id of the product
+   * @param name         the name of the product
+   * @param manufacturer the manufacturer of the product
+   * @param itemType     the specific type of product
+   */
+  Product(int id, String name, String manufacturer, ItemType itemType) {
+    this.id = id;
+    this.name = name;
+    this.manufacturer = manufacturer;
+    type = itemType.getCode();
+  }
+
   @Override
   public int getId() {
     return id;
-  }
-
-  /**
-   * Temporary method to allow the table in the product line tab to display the product's id.
-   *
-   * @param id the unique identification of the product.
-   */
-  public void setId(int id) {
-    this.id = id;
   }
 
   @Override
@@ -78,7 +84,7 @@ public abstract class Product implements Item {
    *
    * @return the item code of the type
    */
-  public String getType() {
+  String getType() {
     return type;
   }
 

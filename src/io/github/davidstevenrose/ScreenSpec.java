@@ -6,7 +6,7 @@ package io.github.davidstevenrose;
  *
  * @author drose
  */
-public interface ScreenSpec {
+interface ScreenSpec {
 
   /**
    * Returns the resolution of the screen.

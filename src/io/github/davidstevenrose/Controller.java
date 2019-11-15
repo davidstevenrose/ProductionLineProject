@@ -1,23 +1,23 @@
 package io.github.davidstevenrose;
 
 import java.sql.PreparedStatement;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import javafx.collections.ObservableList;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 
 /**
  * This class handles events within the application opened in Main.java.
@@ -82,11 +82,8 @@ public class Controller {
    */
   @FXML
   private TextArea productLogTxt;
-  /**
-   * A list of all the different makes of a product. Stores each new product specification as the
-   * product's ID.
-   */
-  private final Map<Product, Integer> companyProducts = new HashMap<>();
+
+  //private ObservableList<Product> productTabTableElements;
 
   /**
    * Initializes the values in the produce tab combobox.
@@ -101,16 +98,26 @@ public class Controller {
         .setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
     // col 3 cell factory set product item type
     productTable.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("type"));
-
+    //setup produce combo box
     for (int i = 1; i < 11; i++) {
       produceCbo.getItems().add(String.valueOf(i));
     }
     produceCbo.getSelectionModel().selectFirst();
-    //should this be true? setting to true for now.
     produceCbo.setEditable(true);
+    //setup type choice box
     for (ItemType itemType : ItemType.values()) {
       typeBox.getItems().add(itemType);
     }
+
+    //assign the list from productTable to tableElements field
+    //productTabTableElements = productTable.getItems();
+
+    //initialize products in all tabs
+    setupProductLineTable();
+    //loadProductList();
+    loadProductionLog();
+
+    //init hooks
 
     //when product line add button is pressed, input will be added to the existing products table.
     addProductBtn.setOnMouseClicked(event -> {
@@ -123,38 +130,6 @@ public class Controller {
       //call method to handle
       addProductsToLine();
     });
-
-    //anytime a product is added to the table, add to production log
-    //remember to change contents of log to ProductionRecord objects
-  }
-
-  /**
-   * Adds a product to the product line table in the H2 database.
-   * this method is currently hooked by fxml DOM
-   *
-   * @param event a passed event
-   */
-  @FXML
-  protected void addProductFromProductLine(MouseEvent event) {
-    //these queries inserts items called 'nail' and its attributes into the Product table
-    String queryOne = "Insert Into product(name,type,manufacturer)"
-        + "Values('Nail','Construction','Home Depot');";
-    String queryTwo = "INSERT INTO product(name,type,manufacturer)"
-        + "VALUES('Nail','AM',?)";
-    try {
-      //create some placeholder statements
-      PreparedStatement psOne = Main.conn.prepareStatement(queryOne);
-      PreparedStatement psTwo = Main.conn.prepareStatement(queryTwo);
-      psOne.executeUpdate();
-      System.out.println("Product 1 added.");
-      psTwo.setString(1, "Sun");
-      psTwo.executeUpdate();
-      System.out.println("Product 2 added.");
-      psOne.close();
-      psTwo.close();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   /**
@@ -167,24 +142,154 @@ public class Controller {
     String prodName = productTxt.getText();
     String manuName = manufactureProd.getText();
     ItemType prodType = typeBox.getValue();
-    Product newProd;
-    if (prodType == ItemType.VISUAL || prodType == ItemType.VISUAL_MOBILE) {
-      newProd = new MoviePlayer(prodName, manuName, prodType, new Screen("244p", 0, 0),
-          MonitorType.LCD);
-    } else {
-      newProd = new AudioPlayer(prodName, manuName, prodType, "no specs");
+    //check for input
+    if (prodName.isEmpty() || manuName.isEmpty() || prodType == null) {
+      Alert a = new Alert(AlertType.ERROR);
+      a.setContentText("Please provide a product name, manufacturer, or item type.");
+      a.show();
+      return;
     }
+
     //for now set a random id to the product
-    newProd.setId(new Random().nextInt(Integer.MAX_VALUE));
+    //newProd.setId(new Random().nextInt(Integer.MAX_VALUE));
     //clear input in UI
     productTxt.setText("");
     manufactureProd.setText("");
     typeBox.setValue(null);
 
-    //add product to table
-    ObservableList<Product> tableElements = productTable.getItems();
-    tableElements.add(newProd);
+    //attempt to add data to database
+    try {
+      //check if product is already in produce list
+      String matchingProduct = "SELECT * FROM PRODUCT WHERE NAME=? AND TYPE=? AND MANUFACTURER=?";
+      String addProductQuery = "INSERT INTO product(NAME,MANUFACTURER,TYPE)"
+          + "VALUES(?,?,?)";
+      PreparedStatement matchStatement = Main.conn.prepareStatement(matchingProduct);
+      matchStatement.setString(1, prodName);
+      matchStatement.setString(2, manuName);
+      matchStatement.setString(3, prodType.getCode());
+      ResultSet existingProduct = matchStatement.executeQuery();
+      //check if the DB already contains the product. If the db does not, then simply do nothing to
+      // simulate the entry of the product.
+      if (existingProduct.getFetchSize() == 0) {
+        PreparedStatement apqStatement = Main.conn.prepareStatement(addProductQuery);
+        apqStatement.setString(1, prodName);
+        apqStatement.setString(2, manuName);
+        apqStatement.setString(3, prodType.getCode());
+        apqStatement.executeUpdate();
+        apqStatement.close();
+      }
+      matchStatement.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+      Alert dbAlert = new Alert(AlertType.ERROR);
+      dbAlert.setContentText(e.toString());
+      return;
+    }
+    loadProductList();
+  }
 
+  /**
+   * Gets the selected product from the produce text area and adds a quantity to the product line
+   * table.
+   */
+  private void addProductsToLine() {
+    Product selected = produceList.getSelectionModel().getSelectedItem();
+
+    //if no product is selected
+    if (selected == null) {
+      Alert a = new Alert(AlertType.ERROR);
+      a.setContentText("Please select a product to produce.");
+      a.show();
+      return;
+    }
+
+    //if no quantity is selected or is NAN
+    int quantity;
+    try {
+      quantity = Integer.parseInt(produceCbo.getValue());
+    } catch (NumberFormatException e) {
+      Alert a = new Alert(AlertType.ERROR);
+      a.setContentText("Please enter a valid integer in the produce combo box.");
+      a.show();
+      return;
+    } catch (Exception e) {
+      Alert a = new Alert(AlertType.ERROR);
+      a.setContentText("Please enter a number of products to produce.");
+      a.show();
+      return;
+    }
+
+    ArrayList<ProductionRecord> productionRun = new ArrayList<>();
+    ProductionRecord pr;
+    int instances;
+    String instancesQuery = "SELECT * FROM PRODUCTIONRECORD";
+    try {
+      PreparedStatement query = Main.conn.prepareStatement(instancesQuery);
+      ResultSet productionTable = query.executeQuery();
+      productionTable.next();
+      instances = productionTable.getFetchSize();
+      query.close();
+    } catch (Exception e) {
+      //TODO: exception handling
+      e.printStackTrace();
+      return;
+    }
+    for (int count = 0; count < quantity; count++) {
+      //TODO: fix serial number generation
+      pr = new ProductionRecord(selected.getId(), new Date(), selected, instances);
+      instances++;
+      productionRun.add(pr);
+    }
+    addToProductionDB(productionRun);
+    loadProductionLog();
+    produceCbo.setValue(null);
+  }
+
+  /**
+   * initializes data from database upon application startup.
+   */
+  private void setupProductLineTable() {
+    loadProductList();
+  }
+
+  /**
+   * Loads the entire Product table from the database to the produce list view.
+   */
+  private void loadProductList() {
+    //get products from db
+    ResultSet products;
+    Product pulledProd;
+    String getQuery = "SELECT * FROM product";
+    ArrayList<Product> newList = new ArrayList<>();
+    try {
+      PreparedStatement query = Main.conn.prepareStatement(getQuery);
+      products = query.executeQuery();
+      while (products.next()) {
+        if (products.getString(3).equals(ItemType.VISUAL.getCode())) {
+          pulledProd = new MoviePlayer(products.getInt(1), products.getString(2),
+              products.getString(4), ItemType.VISUAL, new Screen("144x144", 240, 12),
+              MonitorType.LCD);
+        } else if (products.getString(3).equals(ItemType.VISUAL_MOBILE.getCode())) {
+          pulledProd = new MoviePlayer(products.getInt(1), products.getString(2),
+              products.getString(4), ItemType.VISUAL_MOBILE, new Screen("144x144", 240, 12),
+              MonitorType.LCD);
+        } else if (products.getString(3).equals(ItemType.AUDIO.getCode())) {
+          pulledProd = new AudioPlayer(products.getInt(1), products.getString(2),
+              products.getString(4), ItemType.AUDIO, "VANSELOWSPECS");
+        } else {
+          pulledProd = new AudioPlayer(products.getInt(1), products.getString(2),
+              products.getString(4), ItemType.AUDIO_MOBILE, "VANSELOWSPECS");
+        }
+        //add products to list
+        newList.add(pulledProd);
+      }
+      produceList.getItems().setAll(newList);
+      query.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    /*/add product to table
+    pulledProd.toString();
     //add product to list of company products. if product is new, then update produce text area.
     //this might do a compare by ref, keep in mind.
     if (!companyProducts.containsKey(newProd)) {
@@ -206,24 +311,80 @@ public class Controller {
           }
         }
       });
-    }
-
-    productLogTxt.appendText(newProd.toString());
-    productLogTxt.appendText("===============================\n");
+    }*/
   }
 
   /**
-   * Gets the selected product from the produce text area and adds a quantity to the product line
-   * table.
+   * Adds the records in a list of records to the production log database.
+   *
+   * @param records a collection of records to add to production log DB
    */
-  private void addProductsToLine() {
-    Product selected = produceList.getSelectionModel().getSelectedItem();
-    int quantity = Integer.parseInt(produceCbo.getValue());
-    for (int count = 0; count < quantity; count++) {
-      productTable.getItems().add(selected);
-      productLogTxt.appendText(selected.toString());
-      productLogTxt.appendText("===============================\n");
+  private void addToProductionDB(ArrayList<ProductionRecord> records) {
+    String query = "insert into PRODUCTIONRECORD(product_id, serial_num, date_produced) "
+        + "VALUES(?,?,?)";
+    try {
+      for (ProductionRecord record : records) {
+        System.out.println("attempting to add to DB");
+        PreparedStatement statement = Main.conn.prepareStatement(query);
+        statement.setInt(1, record.getProductID());
+        statement.setString(2, record.getSerialNumber());
+        statement.setTimestamp(3, new Timestamp(record.getDateProduced().getTime()));
+        statement.executeUpdate();
+        statement.close();
+      }
+    } catch (Exception e) {
+      //TODO: handle exception
+      e.printStackTrace();
     }
-    produceCbo.setValue(null);
+  }
+
+  /**
+   * Loads a list of all produced products from the database and calls the showProduction procedure
+   * if the SQL queue was a success.
+   */
+  private void loadProductionLog() {
+    try {
+      ArrayList<ProductionRecord> newProductions = new ArrayList<>();
+      ArrayList<String> newProducts = new ArrayList<>();
+      String logQuery = "SELECT * FROM PRODUCTIONRECORD";
+      String idQuery = "SELECT NAME FROM PRODUCT WHERE ID=?";
+      PreparedStatement logStatement = Main.conn.prepareStatement(logQuery);
+      PreparedStatement idStatement = Main.conn.prepareStatement(idQuery);
+      ResultSet log = logStatement.executeQuery();
+      while (log.next()) {
+        //retrieve product
+        idStatement.setInt(1, log.getInt("PRODUCT_ID"));
+        ResultSet product = idStatement.executeQuery();
+        product.next();
+        newProductions.add(new ProductionRecord(log.getInt(1), log.getInt(2), log.getString(3),
+            log.getTimestamp(4)));
+        newProducts.add(product.getString("NAME"));
+      }
+      idStatement.close();
+      logStatement.close();
+      showProduction(newProductions, newProducts);
+    } catch (Exception e) {
+      //TODO: handle exception
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Populates the text area on the production log tab with the information from the production log
+   * database. Replaces the productID with the product name. Occupies one line for each product
+   * produced. Every time the production log loads, new records will be loaded by clearing the text
+   * area and appending the table to the text area.
+   */
+  private void showProduction(ArrayList<ProductionRecord> newRecords,
+      ArrayList<String> newProducts) {
+    productLogTxt.clear();
+    for (int ind = 0; ind < newRecords.size(); ind++) {
+      //add record to text log
+      String line = "Name: " + newProducts.get(ind) + "; "
+          + "Serial Number: " + newRecords.get(ind).getSerialNumber() + "; "
+          + "Date Produced: " + newRecords.get(ind).getDateProduced().toString();
+      productLogTxt.appendText(line);
+      productLogTxt.appendText("\n=======================================\n");
+    }
   }
 }
