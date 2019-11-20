@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -32,6 +33,16 @@ public class Controller {
    */
   @FXML
   public TabPane window;
+  /**
+   * The password field in the employee tab.
+   */
+  @FXML
+  private PasswordField pwordTextField;
+  /**
+   * the name field in the employee tab.
+   */
+  @FXML
+  private TextField nameTextField;
   /**
    * Text field to add the name of a new product. Located in the Product Line tab.
    */
@@ -82,8 +93,14 @@ public class Controller {
    */
   @FXML
   private TextArea productLogTxt;
+  /**
+   * The button in the employee tab.
+   */
+  @FXML
+  private Button employeeGoBtn;
 
-  //private ObservableList<Product> productTabTableElements;
+  //temporary list to store employees
+  private ArrayList<Employee> employees = new ArrayList<>();
 
   /**
    * Initializes the values in the produce tab combobox.
@@ -130,6 +147,20 @@ public class Controller {
       //call method to handle
       addProductsToLine();
     });
+
+    //when an employee enters his/her information
+    employeeGoBtn.setOnMouseClicked(event -> {
+      //call method to handle
+      addNewEmployee();
+    });
+  }
+
+  private void addNewEmployee() {
+    String name = nameTextField.getText();
+    String pword = pwordTextField.getText();
+    Employee ee = new Employee(name, pword);
+    System.out.println(ee);
+    employees.add(ee);
   }
 
   /**
