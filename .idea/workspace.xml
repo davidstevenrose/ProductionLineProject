@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Fixed retrieval of product given the product's id from the database. Produce list and product log are now populated upon application startup and are updated every time a new product is added/produced.">
-      <change afterPath="$PROJECT_DIR$/src/io/github/davidstevenrose/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/ProductionLineDB.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/res/ProductionLineDB.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/io/github/davidstevenrose/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/io/github/davidstevenrose/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/io/github/davidstevenrose/ProductionLine.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/io/github/davidstevenrose/ProductionLine.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Added Employee class and a tab for Employees to enter their information. Created and tested String regular expressions." />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -320,7 +314,7 @@
       <workItem from="1573681958965" duration="7833000" />
       <workItem from="1573838219211" duration="13375000" />
       <workItem from="1574003229028" duration="428000" />
-      <workItem from="1574265261060" duration="4923000" />
+      <workItem from="1574265261060" duration="5200000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1568386592403</created>
@@ -420,7 +414,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573852835275</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Added Employee class and a tab for Employees to enter their information. Created and tested String regular expressions.">
+      <created>1574270567257</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1574270567257</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -457,6 +458,7 @@
     <MESSAGE value="Created new overload for Production Record that now accepts a Product.&#10;The overloaded constructor generates a serial number with the provided&#10;Product." />
     <MESSAGE value="Added functionality so that the GUI now displays products on teh production line table, the produce list, and the production log." />
     <MESSAGE value="Fixed retrieval of product given the product's id from the database. Produce list and product log are now populated upon application startup and are updated every time a new product is added/produced." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed retrieval of product given the product's id from the database. Produce list and product log are now populated upon application startup and are updated every time a new product is added/produced." />
+    <MESSAGE value="Added Employee class and a tab for Employees to enter their information. Created and tested String regular expressions." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Employee class and a tab for Employees to enter their information. Created and tested String regular expressions." />
   </component>
 </project>

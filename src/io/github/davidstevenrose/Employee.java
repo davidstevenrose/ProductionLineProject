@@ -71,7 +71,8 @@ public class Employee {
    */
   private void setEmail(String name) {
     String[] names = name.split("\\s");
-    email = names[0] + "." + names[1] + "@oracleacademy.Test";
+    email = names[0] + "." + names[1];
+    email = email.toLowerCase() + "@oracleacademy.Test";
   }
 
   /**
