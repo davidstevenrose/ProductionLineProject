@@ -1,5 +1,12 @@
-package io.github.davidstevenrose;
+package productionline;
 
+import io.github.products.AudioPlayer;
+import io.github.products.ItemType;
+import io.github.products.MonitorType;
+import io.github.products.MoviePlayer;
+import io.github.products.Product;
+import io.github.products.ProductionRecord;
+import io.github.products.Screen;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +21,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -27,17 +33,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class Controller {
 
-  /**
-   * The tab pane that contains all the modules of the program. This is the parent frame of the
-   * graphic user interface.
-   */
-  @FXML
-  public TabPane window;
+
   /**
    * The password field in the employee tab.
    */
   @FXML
-  private PasswordField pwordTextField;
+  private PasswordField passwordTextField;
   /**
    * the name field in the employee tab.
    */
@@ -99,9 +100,6 @@ public class Controller {
   @FXML
   private Button employeeGoBtn;
 
-  //temporary list to store employees
-  private ArrayList<Employee> employees = new ArrayList<>();
-
   /**
    * Initializes the values in the produce tab combobox.
    */
@@ -155,12 +153,15 @@ public class Controller {
     });
   }
 
+  /**
+   * Adds new employee information to the console by printing the string representation of
+   * Employee.
+   */
   private void addNewEmployee() {
     String name = nameTextField.getText();
-    String pword = pwordTextField.getText();
+    String pword = passwordTextField.getText();
     Employee ee = new Employee(name, pword);
     System.out.println(ee);
-    employees.add(ee);
   }
 
   /**
@@ -252,13 +253,16 @@ public class Controller {
 
     ArrayList<ProductionRecord> productionRun = new ArrayList<>();
     ProductionRecord pr;
-    int instances;
+    int instances = 0;
     String instancesQuery = "SELECT * FROM PRODUCTIONRECORD";
     try {
       PreparedStatement query = Main.conn.prepareStatement(instancesQuery);
       ResultSet productionTable = query.executeQuery();
       productionTable.next();
-      instances = productionTable.getFetchSize();
+      while (productionTable.next()) {
+        instances++;
+      }
+      System.out.println(instances);
       query.close();
     } catch (Exception e) {
       //TODO: exception handling

@@ -1,4 +1,4 @@
-package io.github.davidstevenrose;
+package io.github.products;
 
 /**
  * Item will show that any implemented class can return the Id, Name, and Manufacturer of any

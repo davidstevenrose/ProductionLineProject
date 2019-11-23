@@ -1,4 +1,4 @@
-package io.github.davidstevenrose;
+package io.github.products;
 
 
 /**

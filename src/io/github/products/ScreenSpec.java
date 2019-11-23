@@ -1,4 +1,4 @@
-package io.github.davidstevenrose;
+package io.github.products;
 
 /**
  * Any class that can be described as a screen that has a resolution, refresh rate, and response

@@ -1,4 +1,4 @@
-package io.github.davidstevenrose;
+package io.github.products;
 
 /**
  * <p>This interface forces any implemented class to have basic media controls.</p>

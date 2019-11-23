@@ -1,4 +1,4 @@
-package io.github.davidstevenrose;
+package productionline;
 
 import java.io.FileInputStream;
 import java.sql.Connection;
@@ -31,7 +31,7 @@ public class Main extends Application {
     Parent root = FXMLLoader.load(getClass().getResource("ProductionLine.fxml"));
     Scene scene = new Scene(root, 600, 400);
     scene.getStylesheets().add(
-        Main.class.getResource("\\..\\..\\..\\ProductionLine.css").toExternalForm()
+        Main.class.getResource("..\\ProductionLine.css").toExternalForm()
     );
     //opens the application
     primaryStage.setTitle("Production Line");

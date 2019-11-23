@@ -1,4 +1,4 @@
-package io.github.davidstevenrose;
+package productionline;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -8,9 +8,9 @@ import java.util.regex.Pattern;
  *
  * @author drose
  */
-public class Employee {
+class Employee {
 
-  private StringBuilder name;
+  private final StringBuilder name;
   private String username;
   private String password;
   private String email;
@@ -24,9 +24,10 @@ public class Employee {
   public Employee(String name, String pword) {
     //trim off any whitespace chars
     name = name.trim();
+    pword = pword.trim();
     //initialize the name and pword
     this.name = new StringBuilder(name);
-    password = pword;
+    password = encrypt(pword);
     //check input
     //if name does not have a space, use default values
     if (!checkName()) {
@@ -38,8 +39,42 @@ public class Employee {
     }
     //if the password is not valid, use default values
     if (!isValidPassword()) {
-      password = "pw";
+      password = encrypt("pw");
     }
+  }
+
+  /**
+   * Encrypts the password by reversing the password.
+   *
+   * @param pw the password to encrypt
+   * @return an encrypted password
+   */
+  private static String encrypt(String pw) {
+    return reverseString(pw);
+  }
+
+  /**
+   * Decrypts the password from the given encryption rule.
+   *
+   * @param pw the password to decrypt
+   * @return a password before encryption
+   */
+  private static String decrypt(String pw) {
+    return reverseString(pw);
+  }
+
+  /**
+   * Reverses the string.
+   *
+   * @param pw the string to reverse
+   * @return the string reversed
+   */
+  private static String reverseString(String pw) {
+    if (pw.isEmpty() || pw.length() == 1) {
+      return pw;
+    }
+    return pw.substring(pw.length() - 1) + reverseString(pw.substring(1, pw.length() - 1)) + pw
+        .substring(0, 1);
   }
 
   /**
@@ -99,7 +134,6 @@ public class Employee {
         + "Name : " + name.toString() + "\n"
         + "Username : " + username + "\n"
         + "Email : " + email + "\n"
-        + "Initial Password : " + password;
+        + "Initial Password : " + decrypt(password);
   }
-
 }

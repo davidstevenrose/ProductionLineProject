@@ -1,5 +1,8 @@
-package io.github.davidstevenrose;
+package io.github.products;
 
+/**
+ * A screen that contains a resolution, refresh rate, and response time.
+ */
 public class Screen implements ScreenSpec {
 
   /**

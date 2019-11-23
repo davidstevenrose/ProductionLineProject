@@ -1,11 +1,11 @@
-package io.github.davidstevenrose;
+package io.github.products;
 
 /**
  * <p>A special product that has basic media controls.</p>
  *
  * @author drose
  */
-@SuppressWarnings("ALL")
+
 public class AudioPlayer extends Product implements MultimediaControl {
 
   /**
@@ -24,7 +24,7 @@ public class AudioPlayer extends Product implements MultimediaControl {
    * @param manufacturer       the manufacturer of the product
    * @param audioSpecification the The audio specification of the object.
    */
-  AudioPlayer(int id, String name, String manufacturer, ItemType it,
+  public AudioPlayer(int id, String name, String manufacturer, ItemType it,
       String audioSpecification) {
     super(id, name, manufacturer, it);
     this.audioSpecification = audioSpecification;

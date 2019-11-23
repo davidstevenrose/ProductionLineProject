@@ -1,4 +1,4 @@
-package io.github.davidstevenrose;
+package io.github.products;
 
 import java.util.Date;
 
@@ -6,7 +6,7 @@ import java.util.Date;
  * Represents a recorded item that has been input into the system but has not yet been processed.
  * Objects of this class are displayed in the TextArea on the production log tab.
  */
-class ProductionRecord {
+public class ProductionRecord {
 
   /**
    * The number of the item in production.

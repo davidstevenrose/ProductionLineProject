@@ -1,6 +1,6 @@
-package io.github.davidstevenrose;
+package io.github.products;
 
-@SuppressWarnings("SameParameterValue")
+
 public class MoviePlayer extends Product implements MultimediaControl {
 
   private final Screen screen;
@@ -13,7 +13,7 @@ public class MoviePlayer extends Product implements MultimediaControl {
    * @param manufacturer the manufacturer of the product
    * @param itemType     the specific type of product
    */
-  MoviePlayer(int id, String name, String manufacturer, ItemType itemType, Screen screen,
+  public MoviePlayer(int id, String name, String manufacturer, ItemType itemType, Screen screen,
       MonitorType mt) {
     //This project accepts an ItemType for the field 'itemType' in class Product.
     super(id, name, manufacturer, itemType);
