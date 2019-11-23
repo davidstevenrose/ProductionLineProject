@@ -9,9 +9,12 @@ public class MoviePlayer extends Product implements MultimediaControl {
   /**
    * Creates an object that inherits from Product by setting the object's name and manufacturer.
    *
+   * @param id           the unique id of the movie player
    * @param name         the name of the product
    * @param manufacturer the manufacturer of the product
+   * @param screen       the Screen that the product contains
    * @param itemType     the specific type of product
+   * @param mt           the MonitorType that the product has
    */
   public MoviePlayer(int id, String name, String manufacturer, ItemType itemType, Screen screen,
       MonitorType mt) {

@@ -20,8 +20,10 @@ public class AudioPlayer extends Product implements MultimediaControl {
   /**
    * Creates an audio player product for the production line.
    *
+   * @param id                 the unique id of the product
    * @param name               the name of the product
    * @param manufacturer       the manufacturer of the product
+   * @param it                 the ItemType that the product is
    * @param audioSpecification the The audio specification of the object.
    */
   public AudioPlayer(int id, String name, String manufacturer, ItemType it,

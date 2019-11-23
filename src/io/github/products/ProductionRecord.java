@@ -151,8 +151,8 @@ public class ProductionRecord {
   /**
    * Returns a String representation of an object of this class as:
    * <p>
-   * Prod. Num: <i>productionNumber</i><br /> Product ID: <i>productID</i><br /> Serial Num:
-   * <i>serialNumber</i><br /> Date: <i>day mon date hh:mm:ss timezone yyyy</i>
+   * Prod. Num: <i>productionNumber</i>\n Product ID: <i>productID</i>\n Serial Num:
+   * <i>serialNumber</i>\n Date: <i>day mon date hh:mm:ss timezone yyyy</i>
    * </p>.
    *
    * @return a String representation in the form mentioned above.
