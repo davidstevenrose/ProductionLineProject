@@ -1,77 +1,78 @@
-# ProductionLineProject
 
-## 
+# Production Line
 
-Problem Statement
+The Production Line software is a demonstration of higher-level object oriented programming skills that incorporates a database. I made this software independently over the course of four months in 2019. I worked on this product as a junior at Florida Gulf Coast University.
 
-**Scenario**
+I made this project to not just demonstrate my skill to a wandering prospective, but to sharpen my own proficiency in programming and software engineering so I may share my skills to employers that I find in the real world. I also want to share to everyone that I have the determination and responsibility to learn how to be a better software engineer. 
 
-You have been hired to create software for a media player production facility that will keep track of what products are produced.
+## Demonstration
 
-Without the software, workers on the production floor are physically producing items and having to write down what is produced in a production log book.
+Add an animated gif of your program running. You can use ShareX, GIPHY Capture or another tool. https://blog.github.com/2018-06-29-GIF-that-keeps-on-GIFing/
+Note for school project: This is a great way for friends and family to easily see your project in action. 
+The markdown is  \!\[Alt text\]\(relative/path/to/img.png) <br />
+![Sample GIF](docs/octocat_github.gif) 
 
-Management would like the production tracking to be more automated so the workers don't need to spend as much time recording what was produced, the log will be more accurate, and it will be easier to generate production reports.
+## Documentation
 
-In addition to the ability to record production, the software also needs the ability to add to the product line (the catalog of products that are able to be produced).
+Create a docs folder in your project. If using Java, generate JavaDoc in your IDE. If using C++, use Doxygen. Change repository settings (using Settings at top of page) to use GitHub Pages with your docs folder. Add a link to the javadoc/doxygen index.html file with this markdown: \[Text to appear]\(URL) <br />
+The URL will be YourGitHubUserName.github.io/YourRepositoryName/foldername/filename<br /> 
+Do not include the docs folder name in your URL. <br />
+Sample: \[JavaDoc]\(https://pv-cop.github.io/PV-README-TEMPLATE/javadoc/index.html) <br /> <br />
+[JavaDoc](https://pv-cop.github.io/PV-README-TEMPLATE/javadoc/index.html)
 
--   **Goals** (high level intended outcomes; for software, a Product Backlog)
-    -   Hypothetical / Real world
-        1.  Allow a user to add new products that are able to be produced and store them in a collection.
-        2.  The collection of products that can be produced can be displayed at any time.
-        3.  Allow a user to track production of products, including specifying how many items of that product were created. The program will then create a record for each of these items and store them in a collection.
-        4.  The collection of created items can be displayed at any time.
-        5.  Production statistics can be displayed – Total items produced, number of each item type, the number of unique products created etc.
-        6.  Employee accounts can be made.
-        7.  Allow easy modification to handle different products.
-    -   Actual / For class
-        1.  Solidify understanding of object oriented programming.
-        2.  Practice Java.
-        3.  Learn basic graphical user interface (GUI) programming.
-        4.  Learn basic database programming.
--   **Boundaries / Scope** (where the functions and responsibilities of the solution start and end / what it should do and what is left to other systems to do)
-    -   Hypothetical / Real world
-        -   For this particular production facility you will only need to track music and movie players.
-        -   The program does not need the ability to place or fulfill orders / reduce stock, just track production.
-    -   Actual / For class
-        -   TBD
--   **Success criteria** (set of conditions to be satisfied at completion; must be measurable and verifiable, like a test)
-    -   Hypothetical / Real world
-        -   Pass tests (in repl.it)
-        -   Follow rules for documentation, style, and coding conventions
-    -   Actual / For class
-        -   Grading forms / rubrics (in Canvas)
-            -   Documentation (see below)
-            -   Style (see below)
-            -   Quality (see below)
-            -   Assignment Specifications - include full project in your repository so your program can be easily imported and run.
-        -   Creation of artifact for portfolio
--   **Constraints** (externally imposed limitations on system requirements, design, or implementation or on the process used to develop or modify a system)
-    -   Hypothetical / Real world
-        -   The program will be a GUI database program written in Java.
-        -   The program must be flexible to allow for future expansion.
-        -   Code should be saved to a private GitHub repository.
-        -   Follow best practices for style, documentation, and quality.
-    -   Actual / For class
-        -   Communication and collaboration with classmates is allowed but should not extend to sharing actual code.
--   **Assumptions** (things that are accepted as true or as certain to happen, without proof)
-    -   You like to program.
-    -   You have foundational knowledge of programming from prerequisite courses.
-    -   You will spend at least 4 hours per week on the project.
-    -   The project should not require more than 7 hours per week. If so, contact the professor for assistance.
-    -   This will help you be successful in future classes and your career.
--   **Stakeholders** (individuals or organizations having a right, share, claim, or interest in a system or in its possession of characteristics that meet their needs and expectations )
-    -   Hypothetical / Real world
-        -   CEO
-        -   CTO
-        -   CIO
-        -   users
-            -   production facility workers
-            -   inventory managers
-        -   customers
-        -   I.T. support
-    -   Actual / For class
-        -   Yourself
-        -   Future potential employers
-        -   Professor
--   **Timelines** (a breakdown of the Product Backlog into time-bound smaller, more detailed tasks in Sprint Backlogs)
-    -   Three 5-week sprints, detailed below.
+## Diagrams
+
+Such as a class diagram. <br /> 
+The markdown is  \!\[Alt text\]\(relative/path/to/img.png) <br />
+ ![Sample Image](docs/9919.png)
+
+## Getting Started
+
+To use the Production Line:
+
+1. Click 'clone or download'
+2. Click 'download .zip'
+3. Unzip and extract all contents to a directory in your file explorer
+4. Open Intellij IDE and open the project folder
+5. Run Main.java to run the program 
+
+
+## Built With
+
+* JetBrains Intellij IDE
+* Scene Builder   
+
+## Contributing
+
+Have a feature that you want in the Production Line? Go ahead and contribute! Just fork the repository, make your changes, and send me a pull request.
+
+## Author
+
+David Rose
+## License
+
+Public repositories on GitHub are often used to share open source software. For your repository to truly be open source, you'll need to license it so that others are free to use, change, and distribute the software. https://help.github.com/articles/licensing-a-repository/ <br />
+You have the option to choose a license when you first create your repository. </br>
+If you need to create a license for an existing repository...
+1. Go to your repository.
+2. Click on "Create new file" Button.
+3. Type the file name as License.txt or License.md in the input box next to your repository name, a drop down button appears towards right side.
+4. Choose the type of license of your choice.
+5. Click "Commit new file" button at the bottom (Green button)
+Credit https://stackoverflow.com/questions/31639059/how-to-add-license-to-an-existing-github-project <br />
+To choose a license, see https://choosealicense.com/ 
+
+## Acknowledgments
+
+The authors of docs.oracle.com
+Hackerrank.com for teaching me how to use the data structures in my project
+
+## History
+
+Version 1.0.0 (11/25/19) - First candidate released
+
+## Key Programming Concepts Utilized
+
+Object-Oriented Analysis - creating class diagrams by extracting information from specifications.
+Anonymous object programming - implementing nameless classes as objects.
+JDBC - incorporating Java with popular databases.
