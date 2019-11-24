@@ -69,8 +69,8 @@ To choose a license, see https://choosealicense.com/
 
 ## Acknowledgments
 
-*The authors of docs.oracle.com
-*Hackerrank.com for teaching me how to use the data structures in my project
+* The authors of docs.oracle.com
+* Hackerrank.com for teaching me how to use the data structures in my project
 
 ## History
 
@@ -78,6 +78,6 @@ Version 1.0.0 (11/25/19) - First candidate released
 
 ## Key Programming Concepts Utilized
 
-*Object-Oriented Analysis - creating class diagrams by extracting information from specifications.
-*Anonymous object programming - implementing nameless classes as objects.
-*JDBC - incorporating Java with popular databases.
+* Object-Oriented Analysis - creating class diagrams by extracting information from specifications.
+* Anonymous object programming - implementing nameless classes as objects.
+* JDBC - incorporating Java with popular databases.
