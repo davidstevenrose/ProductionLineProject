@@ -24,7 +24,12 @@ Sample: \[JavaDoc]\(https://pv-cop.github.io/PV-README-TEMPLATE/javadoc/index.ht
 
 Such as a class diagram. <br /> 
 The markdown is  \!\[Alt text\]\(relative/path/to/img.png) <br />
- ![Sample Image](docs/9919.png)
+ ![product package (private)](https://github.com/davidstevenrose/ProductionLineProject/blob/master/classDig.PNG)
+  ![main package (private)](https://github.com/davidstevenrose/ProductionLineProject/blob/master/classDig_control.PNG)
+
+ ![db-gram (private)](https://github.com/davidstevenrose/ProductionLineProject/blob/master/db_gram.PNG)
+
+ 
 
 ## Getting Started
 
