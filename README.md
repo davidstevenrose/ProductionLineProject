@@ -10,7 +10,7 @@ I made this project to not just demonstrate my skill to a wandering prospective,
 Add an animated gif of your program running. You can use ShareX, GIPHY Capture or another tool. https://blog.github.com/2018-06-29-GIF-that-keeps-on-GIFing/
 Note for school project: This is a great way for friends and family to easily see your project in action. 
 The markdown is  \!\[Alt text\]\(relative/path/to/img.png) <br />
-![Sample GIF](docs/octocat_github.gif) 
+![Demo of program](https://github.com/davidstevenrose/ProductionLineProject/blob/master/PPLDemo.gif) 
 
 ## Documentation
 
