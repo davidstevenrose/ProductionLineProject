@@ -69,4 +69,5 @@ Version 1.0.0 (11/25/19) - First candidate released
 
 * Object-Oriented Analysis - creating class diagrams by extracting information from specifications.
 * Anonymous object programming - implementing nameless classes as objects.
+* Creating objects from interface and enum classes.
 * JDBC - incorporating Java with popular databases.
