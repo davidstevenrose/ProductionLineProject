@@ -21,10 +21,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * This class handles events within the application opened in Main.java.
@@ -65,12 +63,7 @@ public class Controller {
    */
   @FXML
   private Button addProductBtn;
-  /**
-   * A table that displays all existing products. Located in the Product Line tab. Displays a row in
-   * the order of product id, type, manufacturer, and name.
-   */
-  @FXML
-  private TableView<Product> productTable;
+
   /**
    * A list view that displays all products. Located in the Produce Line tab. Selected items are
    * used to record production.
@@ -105,14 +98,6 @@ public class Controller {
    */
   @FXML
   protected void initialize() {
-    //initialize the factory for existing product table
-    // col 1 cell factory set product name
-    productTable.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("name"));
-    // col 2 cell factory set product manufacturer name
-    productTable.getColumns().get(1)
-        .setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
-    // col 3 cell factory set product item type
-    productTable.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("type"));
     //setup produce combo box
     for (int i = 1; i < 11; i++) {
       produceCbo.getItems().add(String.valueOf(i));
