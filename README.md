@@ -17,8 +17,7 @@ I made this project to not just demonstrate my skill to a wandering prospective,
 
 ## Diagrams
 
-Such as a class diagram. <br /> 
-The markdown is  \!\[Alt text\]\(relative/path/to/img.png) <br />
+
  ![product package (private)](https://github.com/davidstevenrose/ProductionLineProject/blob/master/classDig.PNG)
   ![main package (private)](https://github.com/davidstevenrose/ProductionLineProject/blob/master/classDig_control.PNG)
 
